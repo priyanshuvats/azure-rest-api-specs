@@ -2884,6 +2884,36 @@ suppressions:
     from: EventGrid.json
     where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[5].schema.properties.deadLetterWithResourceIdentity
 
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not be required, property:federatedClientId."
+    from: EventGrid.json
+    where: $.paths["/{scope}/providers/Microsoft.EventGrid/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[3].schema.properties.deliveryWithResourceIdentity
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not be required, property:federatedClientId."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[5].schema.properties.deliveryWithResourceIdentity
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not be required, property:federatedClientId."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[6].schema.properties.deliveryWithResourceIdentity
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not be required, property:federatedClientId."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerTopics/{partnerTopicName}/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[5].schema.properties.deliveryWithResourceIdentity
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not be required, property:federatedClientId."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/systemTopics/{systemTopicName}/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[5].schema.properties.deliveryWithResourceIdentity
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not be required, property:federatedClientId."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[5].schema.properties.deliveryWithResourceIdentity
+
 ```
 
 ### Tag: package-2025-11-preview
