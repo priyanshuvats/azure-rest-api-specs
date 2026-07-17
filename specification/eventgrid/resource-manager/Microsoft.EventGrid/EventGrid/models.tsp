@@ -1,10 +1,12 @@
 import "@typespec/rest";
 import "@typespec/http";
+import "@typespec/versioning";
 import "@azure-tools/typespec-azure-resource-manager";
 import "@azure-tools/typespec-azure-core";
 
 using TypeSpec.Rest;
 using TypeSpec.Http;
+using TypeSpec.Versioning;
 using Azure.ResourceManager;
 using Azure.Core;
 using Azure.ResourceManager.Foundations;
@@ -557,6 +559,30 @@ union TlsVersion {
    * 1.2
    */
   `1.2`: "1.2",
+
+  /**
+   * 1.3
+   */
+  @added(Versions.v2026_06_15_preview)
+  `1.3`: "1.3",
+}
+
+/**
+ * Specifies the IP address type for the namespace.
+ */
+@added(Versions.v2026_06_15_preview)
+union IpAddressType {
+  string,
+
+  /**
+   * The namespace supports IPv4 only. This is the default.
+   */
+  IPv4: "IPv4",
+
+  /**
+   * The namespace supports both IPv4 and IPv6 (dual-stack).
+   */
+  DualStack: "DualStack",
 }
 
 /**
@@ -3574,6 +3600,12 @@ model NamespaceProperties {
    * Minimum TLS version of the publisher allowed to publish to this namespace. Only TLS version 1.2 is supported.
    */
   minimumTlsVersionAllowed?: TlsVersion;
+
+  /**
+   * This property specifies the IP address type for the namespace.
+   */
+  @added(Versions.v2026_06_15_preview)
+  ipAddressType?: IpAddressType;
 }
 
 /**
@@ -3964,6 +3996,12 @@ model NamespaceUpdateParameterProperties {
    */
   @identifiers(#[])
   inboundIpRules?: InboundIpRule[];
+
+  /**
+   * This property specifies the IP address type for the namespace.
+   */
+  @added(Versions.v2026_06_15_preview)
+  ipAddressType?: IpAddressType;
 }
 
 /**
@@ -4551,6 +4589,7 @@ model NetworkSecurityPerimeterConfigurationProperties {
    * Provisioning state to reflect configuration state and indicate status of nsp profile configuration retrieval.
    */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  @visibility(Lifecycle.Read)
   provisioningState?: NetworkSecurityPerimeterConfigProvisioningState;
 
   /**
