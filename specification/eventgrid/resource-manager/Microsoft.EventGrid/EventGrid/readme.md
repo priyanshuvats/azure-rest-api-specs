@@ -27,7 +27,2893 @@ These are the global settings for the Azure EventGrid API.
 ```yaml
 openapi-type: arm
 
-tag: package-2025-11-preview
+tag: package-2026-06-preview
+```
+
+### Tag: package-2026-06-preview
+
+These settings apply only when `--tag=package-2026-06-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2026-06-preview'
+input-file:
+- preview/2026-06-15-preview/EventGrid.json
+
+suppressions:
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'eventSubscriptionName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/{scope}/providers/Microsoft.EventGrid/eventSubscriptions/{eventSubscriptionName}"]
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/{scope}/providers/Microsoft.EventGrid/eventSubscriptions/{eventSubscriptionName}"].get.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/{scope}/providers/Microsoft.EventGrid/eventSubscriptions/{eventSubscriptionName}"].put.responses[201].schema
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not be required, property:endpointType."
+    from: EventGrid.json
+    where: $.paths["/{scope}/providers/Microsoft.EventGrid/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[3].schema.properties.deadLetterDestination
+
+  - code: ConsistentPatchProperties
+    reason: "The property 'destination' in the request body either not apppear in the resource model or has the wrong level."
+    from: EventGrid.json
+    where: $.paths["/{scope}/providers/Microsoft.EventGrid/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[3].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/{scope}/providers/Microsoft.EventGrid/eventSubscriptions/{eventSubscriptionName}"].patch.responses[201].schema
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'eventSubscriptionName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/{scope}/providers/Microsoft.EventGrid/eventSubscriptions/{eventSubscriptionName}/getDeliveryAttributes"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'eventSubscriptionName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/{scope}/providers/Microsoft.EventGrid/eventSubscriptions/{eventSubscriptionName}/getFullUrl"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'topicTypeName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/providers/Microsoft.EventGrid/topicTypes/{topicTypeName}"]
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/providers/Microsoft.EventGrid/topicTypes/{topicTypeName}"].get.responses[200].schema
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'topicTypeName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/providers/Microsoft.EventGrid/topicTypes/{topicTypeName}/eventTypes"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'verifiedPartnerName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/providers/Microsoft.EventGrid/verifiedPartners/{verifiedPartnerName}"]
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/providers/Microsoft.EventGrid/verifiedPartners/{verifiedPartnerName}"].get.responses[200].schema
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'topicTypeName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/providers/Microsoft.EventGrid/locations/{location}/topicTypes/{topicTypeName}/eventSubscriptions"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'topicTypeName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/providers/Microsoft.EventGrid/topicTypes/{topicTypeName}/eventSubscriptions"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'resourceTypeName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{providerNamespace}/{resourceTypeName}/{resourceName}/providers/Microsoft.EventGrid/eventSubscriptions"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'resourceTypeName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{providerNamespace}/{resourceTypeName}/{resourceName}/providers/Microsoft.EventGrid/eventTypes"]
+
+  - code: PathContainsResourceType
+    reason: "The path for the CURD methods do not contain a resource type."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{resourceType}/{resourceName}/networkSecurityPerimeterConfigurations"]
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'topics' Description:'topics'"
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{resourceType}/{resourceName}/networkSecurityPerimeterConfigurations"].get.parameters[3].x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'domains' Description:'domains'"
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{resourceType}/{resourceName}/networkSecurityPerimeterConfigurations"].get.parameters[3].x-ms-enum.values[1].description
+
+  - code: PathContainsResourceType
+    reason: "The path for the CURD methods do not contain a resource type."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{resourceType}/{resourceName}/networkSecurityPerimeterConfigurations/{perimeterGuid}.{associationName}"]
+
+  - code: PathResourceTypeNameCamelCase
+    reason: "Resource type naming must follow camel case. Path: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{resourceType}/{resourceName}/networkSecurityPerimeterConfigurations/{perimeterGuid}.{associationName}'"
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{resourceType}/{resourceName}/networkSecurityPerimeterConfigurations/{perimeterGuid}.{associationName}"]
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'topics' Description:'topics'"
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{resourceType}/{resourceName}/networkSecurityPerimeterConfigurations/{perimeterGuid}.{associationName}"].get.parameters[3].x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'domains' Description:'domains'"
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{resourceType}/{resourceName}/networkSecurityPerimeterConfigurations/{perimeterGuid}.{associationName}"].get.parameters[3].x-ms-enum.values[1].description
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{resourceType}/{resourceName}/networkSecurityPerimeterConfigurations/{perimeterGuid}.{associationName}"].get.responses[200].schema
+
+  - code: PathForResourceAction
+    reason: "Path for 'post' method on a resource type MUST follow valid resource naming."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{resourceType}/{resourceName}/networkSecurityPerimeterConfigurations/{perimeterGuid}.{associationName}/reconcile"]
+
+  - code: PathResourceTypeNameCamelCase
+    reason: "Resource type naming must follow camel case. Path: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{resourceType}/{resourceName}/networkSecurityPerimeterConfigurations/{perimeterGuid}.{associationName}/reconcile'"
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{resourceType}/{resourceName}/networkSecurityPerimeterConfigurations/{perimeterGuid}.{associationName}/reconcile"]
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'topics' Description:'topics'"
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{resourceType}/{resourceName}/networkSecurityPerimeterConfigurations/{perimeterGuid}.{associationName}/reconcile"].post.parameters[3].x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'domains' Description:'domains'"
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{resourceType}/{resourceName}/networkSecurityPerimeterConfigurations/{perimeterGuid}.{associationName}/reconcile"].post.parameters[3].x-ms-enum.values[1].description
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{resourceType}/{resourceName}/networkSecurityPerimeterConfigurations/{perimeterGuid}.{associationName}/reconcile"].post.responses[200].schema
+
+  - code: PathContainsResourceType
+    reason: "The path for the CURD methods do not contain a resource type."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'parentName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections"]
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'topics' Description:'topics'"
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections"].get.parameters[3].x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'domains' Description:'domains'"
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections"].get.parameters[3].x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'partnerNamespaces' Description:'partnerNamespaces'"
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections"].get.parameters[3].x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'namespaces' Description:'namespaces'"
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections"].get.parameters[3].x-ms-enum.values[3].description
+
+  - code: EvenSegmentedPathForPutOperation
+    reason: "API path with PUT operation defined MUST have even number of segments (i.e. end in {resourceType}/{resourceName} segments)."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections/{privateEndpointConnectionName}"]
+
+  - code: PathContainsResourceType
+    reason: "The path for the CURD methods do not contain a resource type."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections/{privateEndpointConnectionName}"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'parentName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections/{privateEndpointConnectionName}"]
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'topics' Description:'topics'"
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections/{privateEndpointConnectionName}"].get.parameters[3].x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'domains' Description:'domains'"
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections/{privateEndpointConnectionName}"].get.parameters[3].x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'partnerNamespaces' Description:'partnerNamespaces'"
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections/{privateEndpointConnectionName}"].get.parameters[3].x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'namespaces' Description:'namespaces'"
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections/{privateEndpointConnectionName}"].get.parameters[3].x-ms-enum.values[3].description
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections/{privateEndpointConnectionName}"].get.responses[200].schema
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'topics' Description:'topics'"
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections/{privateEndpointConnectionName}"].put.parameters[3].x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'domains' Description:'domains'"
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections/{privateEndpointConnectionName}"].put.parameters[3].x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'partnerNamespaces' Description:'partnerNamespaces'"
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections/{privateEndpointConnectionName}"].put.parameters[3].x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'namespaces' Description:'namespaces'"
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections/{privateEndpointConnectionName}"].put.parameters[3].x-ms-enum.values[3].description
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections/{privateEndpointConnectionName}"].put.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections/{privateEndpointConnectionName}"].put.responses[201].schema
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'topics' Description:'topics'"
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections/{privateEndpointConnectionName}"].delete.parameters[3].x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'domains' Description:'domains'"
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections/{privateEndpointConnectionName}"].delete.parameters[3].x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'partnerNamespaces' Description:'partnerNamespaces'"
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections/{privateEndpointConnectionName}"].delete.parameters[3].x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'namespaces' Description:'namespaces'"
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections/{privateEndpointConnectionName}"].delete.parameters[3].x-ms-enum.values[3].description
+
+  - code: PathContainsResourceType
+    reason: "The path for the CURD methods do not contain a resource type."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateLinkResources"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'parentName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateLinkResources"]
+
+  - code: PathContainsResourceType
+    reason: "The path for the CURD methods do not contain a resource type."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateLinkResources/{privateLinkResourceName}"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'parentName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateLinkResources/{privateLinkResourceName}"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'domainName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}"]
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}"].get.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}"].put.responses[201].schema
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not have default value, property:publicNetworkAccess."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}"].patch.parameters[4].schema.properties.properties
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}"].patch.responses[201].schema
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'domainName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/eventSubscriptions"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'domainName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/eventSubscriptions/{eventSubscriptionName}"]
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/eventSubscriptions/{eventSubscriptionName}"].get.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/eventSubscriptions/{eventSubscriptionName}"].put.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/eventSubscriptions/{eventSubscriptionName}"].put.responses[201].schema
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not be required, property:endpointType."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[5].schema.properties.deadLetterDestination
+
+  - code: ConsistentPatchProperties
+    reason: "The property 'destination' in the request body either not apppear in the resource model or has the wrong level."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[5].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/eventSubscriptions/{eventSubscriptionName}"].patch.responses[201].schema
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'domainName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/eventSubscriptions/{eventSubscriptionName}/getDeliveryAttributes"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'domainName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/eventSubscriptions/{eventSubscriptionName}/getFullUrl"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'domainName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/listKeys"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'domainName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/regenerateKey"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'domainName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/topics"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'domainName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/topics/{domainTopicName}"]
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/topics/{domainTopicName}"].get.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/topics/{domainTopicName}"].put.responses[201].schema
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'domainName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/topics/{topicName}/eventSubscriptions"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'domainName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}"]
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}"].get.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}"].put.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}"].put.responses[201].schema
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not be required, property:endpointType."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[6].schema.properties.deadLetterDestination
+
+  - code: ConsistentPatchProperties
+    reason: "The property 'destination' in the request body either not apppear in the resource model or has the wrong level."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[6].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}"].patch.responses[201].schema
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'domainName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}/getDeliveryAttributes"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'domainName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}/getFullUrl"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'domainName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/topics/{topicName}/providers/Microsoft.EventGrid/eventSubscriptions"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'topicTypeName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/locations/{location}/topicTypes/{topicTypeName}/eventSubscriptions"]
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}"].get.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}"].put.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}"].put.responses[201].schema
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not be required, property:identity."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}"].patch.parameters[4].schema.properties.properties
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}"].patch.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}"].patch.responses[202].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}/caCertificates/{caCertificateName}"].get.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}/caCertificates/{caCertificateName}"].put.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}/caCertificates/{caCertificateName}"].put.responses[201].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}/clientGroups/{clientGroupName}"].get.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}/clientGroups/{clientGroupName}"].put.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}/clientGroups/{clientGroupName}"].put.responses[201].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}/clients/{clientName}"].get.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}/clients/{clientName}"].put.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}/clients/{clientName}"].put.responses[201].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}/permissionBindings/{permissionBindingName}"].get.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}/permissionBindings/{permissionBindingName}"].put.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}/permissionBindings/{permissionBindingName}"].put.responses[201].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}/topicSpaces/{topicSpaceName}"].get.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}/topicSpaces/{topicSpaceName}"].put.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}/topicSpaces/{topicSpaceName}"].put.responses[201].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}/topics/{topicName}"].get.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}/topics/{topicName}"].put.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}/topics/{topicName}"].put.responses[201].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}/topics/{topicName}"].patch.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}/topics/{topicName}"].patch.responses[202].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}"].get.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}"].put.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}"].put.responses[201].schema
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not be required, property:federatedClientId."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[6].schema.properties.properties
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}"].patch.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/namespaces/{namespaceName}/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}"].patch.responses[202].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerConfigurations/default"].get.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerConfigurations/default"].put.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerConfigurations/default"].put.responses[201].schema
+
+  - code: ConsistentPatchProperties
+    reason: "The property 'properties.defaultMaximumExpirationTimeInDays' in the request body either not apppear in the resource model or has the wrong level."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerConfigurations/default"].patch.parameters[3].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerConfigurations/default"].patch.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerConfigurations/default"].patch.responses[201].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerConfigurations/default/authorizePartner"].post.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerConfigurations/default/unauthorizePartner"].post.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerDestinations/{partnerDestinationName}"].get.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerDestinations/{partnerDestinationName}"].put.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerDestinations/{partnerDestinationName}"].put.responses[201].schema
+
+  - code: PatchResponseCodes
+    reason: "Long-running PATCH operations must have responses with 200, 202 and default return codes. They also must not have other response codes."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerDestinations/{partnerDestinationName}"].patch
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerDestinations/{partnerDestinationName}"].patch.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerDestinations/{partnerDestinationName}"].patch.responses[201].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerDestinations/{partnerDestinationName}"].patch.responses[202].schema
+
+  - code: DeleteResponseCodes
+    reason: "Long-running delete operations must have responses with 202, 204 and default return codes. They also must have no other response codes."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerDestinations/{partnerDestinationName}"].delete
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerDestinations/{partnerDestinationName}/activate"].post.responses[200].schema
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'partnerNamespaceName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerNamespaces/{partnerNamespaceName}"]
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerNamespaces/{partnerNamespaceName}"].get.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerNamespaces/{partnerNamespaceName}"].put.responses[201].schema
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not have default value, property:publicNetworkAccess."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerNamespaces/{partnerNamespaceName}"].patch.parameters[4].schema.properties.properties
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerNamespaces/{partnerNamespaceName}"].patch.responses[201].schema
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'partnerNamespaceName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerNamespaces/{partnerNamespaceName}/channels"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'partnerNamespaceName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerNamespaces/{partnerNamespaceName}/channels/{channelName}"]
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerNamespaces/{partnerNamespaceName}/channels/{channelName}"].get.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerNamespaces/{partnerNamespaceName}/channels/{channelName}"].put.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerNamespaces/{partnerNamespaceName}/channels/{channelName}"].put.responses[201].schema
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not have default value, property:endpointType."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerNamespaces/{partnerNamespaceName}/channels/{channelName}"].patch.parameters[5].schema.properties.properties
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'partnerNamespaceName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerNamespaces/{partnerNamespaceName}/channels/{channelName}/getFullUrl"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'partnerNamespaceName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerNamespaces/{partnerNamespaceName}/listKeys"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'partnerNamespaceName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerNamespaces/{partnerNamespaceName}/regenerateKey"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'partnerRegistrationName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerRegistrations/{partnerRegistrationName}"]
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerRegistrations/{partnerRegistrationName}"].get.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerRegistrations/{partnerRegistrationName}"].put.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerRegistrations/{partnerRegistrationName}"].put.responses[202].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerRegistrations/{partnerRegistrationName}"].patch.responses[201].schema
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'partnerTopicName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerTopics/{partnerTopicName}"]
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerTopics/{partnerTopicName}"].get.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerTopics/{partnerTopicName}"].put.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerTopics/{partnerTopicName}"].put.responses[201].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerTopics/{partnerTopicName}"].patch.responses[201].schema
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'partnerTopicName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerTopics/{partnerTopicName}/activate"]
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerTopics/{partnerTopicName}/activate"].post.responses[200].schema
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'partnerTopicName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerTopics/{partnerTopicName}/deactivate"]
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerTopics/{partnerTopicName}/deactivate"].post.responses[200].schema
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'partnerTopicName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerTopics/{partnerTopicName}/eventSubscriptions"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'partnerTopicName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerTopics/{partnerTopicName}/eventSubscriptions/{eventSubscriptionName}"]
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerTopics/{partnerTopicName}/eventSubscriptions/{eventSubscriptionName}"].get.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerTopics/{partnerTopicName}/eventSubscriptions/{eventSubscriptionName}"].put.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerTopics/{partnerTopicName}/eventSubscriptions/{eventSubscriptionName}"].put.responses[201].schema
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not be required, property:endpointType."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerTopics/{partnerTopicName}/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[5].schema.properties.deadLetterDestination
+
+  - code: ConsistentPatchProperties
+    reason: "The property 'destination' in the request body either not apppear in the resource model or has the wrong level."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerTopics/{partnerTopicName}/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[5].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerTopics/{partnerTopicName}/eventSubscriptions/{eventSubscriptionName}"].patch.responses[201].schema
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'partnerTopicName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerTopics/{partnerTopicName}/eventSubscriptions/{eventSubscriptionName}/getDeliveryAttributes"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'partnerTopicName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerTopics/{partnerTopicName}/eventSubscriptions/{eventSubscriptionName}/getFullUrl"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'systemTopicName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/systemTopics/{systemTopicName}"]
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/systemTopics/{systemTopicName}"].get.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/systemTopics/{systemTopicName}"].put.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/systemTopics/{systemTopicName}"].put.responses[201].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/systemTopics/{systemTopicName}"].patch.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/systemTopics/{systemTopicName}"].patch.responses[201].schema
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'systemTopicName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/systemTopics/{systemTopicName}/eventSubscriptions"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'systemTopicName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/systemTopics/{systemTopicName}/eventSubscriptions/{eventSubscriptionName}"]
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/systemTopics/{systemTopicName}/eventSubscriptions/{eventSubscriptionName}"].get.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/systemTopics/{systemTopicName}/eventSubscriptions/{eventSubscriptionName}"].put.responses[201].schema
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not be required, property:endpointType."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/systemTopics/{systemTopicName}/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[5].schema.properties.deadLetterDestination
+
+  - code: ConsistentPatchProperties
+    reason: "The property 'destination' in the request body either not apppear in the resource model or has the wrong level."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/systemTopics/{systemTopicName}/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[5].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/systemTopics/{systemTopicName}/eventSubscriptions/{eventSubscriptionName}"].patch.responses[201].schema
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'systemTopicName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/systemTopics/{systemTopicName}/eventSubscriptions/{eventSubscriptionName}/getDeliveryAttributes"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'systemTopicName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/systemTopics/{systemTopicName}/eventSubscriptions/{eventSubscriptionName}/getFullUrl"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'topicTypeName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topicTypes/{topicTypeName}/eventSubscriptions"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'topicName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}"]
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}"].get.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}"].put.responses[201].schema
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not have default value, property:publicNetworkAccess."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}"].patch.parameters[4].schema.properties.properties
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}"].patch.responses[201].schema
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'topicName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}/eventSubscriptions"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'topicName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}"]
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}"].get.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}"].put.responses[200].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}"].put.responses[201].schema
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not be required, property:endpointType."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[5].schema.properties.deadLetterDestination
+
+  - code: ConsistentPatchProperties
+    reason: "The property 'destination' in the request body either not apppear in the resource model or has the wrong level."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[5].schema
+
+  - code: ProvisioningStateMustBeReadOnly
+    reason: "provisioningState property must be set to readOnly."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}"].patch.responses[201].schema
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'topicName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}/getDeliveryAttributes"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'topicName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}/getFullUrl"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'topicName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}/listKeys"]
+
+  - code: ResourceNameRestriction
+    reason: "The resource name parameter 'topicName' should be defined with a 'pattern' restriction."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}/regenerateKey"]
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'NumberIn' Description:'NumberIn'"
+    from: EventGrid.json
+    where: $.definitions.AdvancedFilterOperatorType.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'NumberNotIn' Description:'NumberNotIn'"
+    from: EventGrid.json
+    where: $.definitions.AdvancedFilterOperatorType.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'NumberLessThan' Description:'NumberLessThan'"
+    from: EventGrid.json
+    where: $.definitions.AdvancedFilterOperatorType.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'NumberGreaterThan' Description:'NumberGreaterThan'"
+    from: EventGrid.json
+    where: $.definitions.AdvancedFilterOperatorType.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'NumberLessThanOrEquals' Description:'NumberLessThanOrEquals'"
+    from: EventGrid.json
+    where: $.definitions.AdvancedFilterOperatorType.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'NumberGreaterThanOrEquals' Description:'NumberGreaterThanOrEquals'"
+    from: EventGrid.json
+    where: $.definitions.AdvancedFilterOperatorType.x-ms-enum.values[5].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'BoolEquals' Description:'BoolEquals'"
+    from: EventGrid.json
+    where: $.definitions.AdvancedFilterOperatorType.x-ms-enum.values[6].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'StringIn' Description:'StringIn'"
+    from: EventGrid.json
+    where: $.definitions.AdvancedFilterOperatorType.x-ms-enum.values[7].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'StringNotIn' Description:'StringNotIn'"
+    from: EventGrid.json
+    where: $.definitions.AdvancedFilterOperatorType.x-ms-enum.values[8].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'StringBeginsWith' Description:'StringBeginsWith'"
+    from: EventGrid.json
+    where: $.definitions.AdvancedFilterOperatorType.x-ms-enum.values[9].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'StringEndsWith' Description:'StringEndsWith'"
+    from: EventGrid.json
+    where: $.definitions.AdvancedFilterOperatorType.x-ms-enum.values[10].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'StringContains' Description:'StringContains'"
+    from: EventGrid.json
+    where: $.definitions.AdvancedFilterOperatorType.x-ms-enum.values[11].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'NumberInRange' Description:'NumberInRange'"
+    from: EventGrid.json
+    where: $.definitions.AdvancedFilterOperatorType.x-ms-enum.values[12].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'NumberNotInRange' Description:'NumberNotInRange'"
+    from: EventGrid.json
+    where: $.definitions.AdvancedFilterOperatorType.x-ms-enum.values[13].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'StringNotBeginsWith' Description:'StringNotBeginsWith'"
+    from: EventGrid.json
+    where: $.definitions.AdvancedFilterOperatorType.x-ms-enum.values[14].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'StringNotEndsWith' Description:'StringNotEndsWith'"
+    from: EventGrid.json
+    where: $.definitions.AdvancedFilterOperatorType.x-ms-enum.values[15].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'StringNotContains' Description:'StringNotContains'"
+    from: EventGrid.json
+    where: $.definitions.AdvancedFilterOperatorType.x-ms-enum.values[16].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'IsNullOrUndefined' Description:'IsNullOrUndefined'"
+    from: EventGrid.json
+    where: $.definitions.AdvancedFilterOperatorType.x-ms-enum.values[17].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'IsNotNull' Description:'IsNotNull'"
+    from: EventGrid.json
+    where: $.definitions.AdvancedFilterOperatorType.x-ms-enum.values[18].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'ClientCertificateSubject' Description:'ClientCertificateSubject'"
+    from: EventGrid.json
+    where: $.definitions.AlternativeAuthenticationNameSource.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'ClientCertificateDns' Description:'ClientCertificateDns'"
+    from: EventGrid.json
+    where: $.definitions.AlternativeAuthenticationNameSource.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'ClientCertificateUri' Description:'ClientCertificateUri'"
+    from: EventGrid.json
+    where: $.definitions.AlternativeAuthenticationNameSource.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'ClientCertificateIp' Description:'ClientCertificateIp'"
+    from: EventGrid.json
+    where: $.definitions.AlternativeAuthenticationNameSource.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'ClientCertificateEmail' Description:'ClientCertificateEmail'"
+    from: EventGrid.json
+    where: $.definitions.AlternativeAuthenticationNameSource.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Creating' Description:'Creating'"
+    from: EventGrid.json
+    where: $.definitions.CaCertificateProvisioningState.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Updating' Description:'Updating'"
+    from: EventGrid.json
+    where: $.definitions.CaCertificateProvisioningState.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleting' Description:'Deleting'"
+    from: EventGrid.json
+    where: $.definitions.CaCertificateProvisioningState.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Succeeded' Description:'Succeeded'"
+    from: EventGrid.json
+    where: $.definitions.CaCertificateProvisioningState.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Canceled' Description:'Canceled'"
+    from: EventGrid.json
+    where: $.definitions.CaCertificateProvisioningState.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Failed' Description:'Failed'"
+    from: EventGrid.json
+    where: $.definitions.CaCertificateProvisioningState.x-ms-enum.values[5].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleted' Description:'Deleted'"
+    from: EventGrid.json
+    where: $.definitions.CaCertificateProvisioningState.x-ms-enum.values[6].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Creating' Description:'Creating'"
+    from: EventGrid.json
+    where: $.definitions.ChannelProvisioningState.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Updating' Description:'Updating'"
+    from: EventGrid.json
+    where: $.definitions.ChannelProvisioningState.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleting' Description:'Deleting'"
+    from: EventGrid.json
+    where: $.definitions.ChannelProvisioningState.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Succeeded' Description:'Succeeded'"
+    from: EventGrid.json
+    where: $.definitions.ChannelProvisioningState.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Canceled' Description:'Canceled'"
+    from: EventGrid.json
+    where: $.definitions.ChannelProvisioningState.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Failed' Description:'Failed'"
+    from: EventGrid.json
+    where: $.definitions.ChannelProvisioningState.x-ms-enum.values[5].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'IdleDueToMirroredPartnerTopicDeletion' Description:'IdleDueToMirroredPartnerTopicDeletion'"
+    from: EventGrid.json
+    where: $.definitions.ChannelProvisioningState.x-ms-enum.values[6].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'IdleDueToMirroredPartnerDestinationDeletion' Description:'IdleDueToMirroredPartnerDestinationDeletion'"
+    from: EventGrid.json
+    where: $.definitions.ChannelProvisioningState.x-ms-enum.values[7].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'PartnerTopic' Description:'PartnerTopic'"
+    from: EventGrid.json
+    where: $.definitions.ChannelType.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'PartnerDestination' Description:'PartnerDestination'"
+    from: EventGrid.json
+    where: $.definitions.ChannelType.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'SubjectMatchesAuthenticationName' Description:'SubjectMatchesAuthenticationName'"
+    from: EventGrid.json
+    where: $.definitions.ClientCertificateValidationScheme.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'DnsMatchesAuthenticationName' Description:'DnsMatchesAuthenticationName'"
+    from: EventGrid.json
+    where: $.definitions.ClientCertificateValidationScheme.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'UriMatchesAuthenticationName' Description:'UriMatchesAuthenticationName'"
+    from: EventGrid.json
+    where: $.definitions.ClientCertificateValidationScheme.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'IpMatchesAuthenticationName' Description:'IpMatchesAuthenticationName'"
+    from: EventGrid.json
+    where: $.definitions.ClientCertificateValidationScheme.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'EmailMatchesAuthenticationName' Description:'EmailMatchesAuthenticationName'"
+    from: EventGrid.json
+    where: $.definitions.ClientCertificateValidationScheme.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'ThumbprintMatch' Description:'ThumbprintMatch'"
+    from: EventGrid.json
+    where: $.definitions.ClientCertificateValidationScheme.x-ms-enum.values[5].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Creating' Description:'Creating'"
+    from: EventGrid.json
+    where: $.definitions.ClientGroupProvisioningState.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Updating' Description:'Updating'"
+    from: EventGrid.json
+    where: $.definitions.ClientGroupProvisioningState.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleting' Description:'Deleting'"
+    from: EventGrid.json
+    where: $.definitions.ClientGroupProvisioningState.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Succeeded' Description:'Succeeded'"
+    from: EventGrid.json
+    where: $.definitions.ClientGroupProvisioningState.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Canceled' Description:'Canceled'"
+    from: EventGrid.json
+    where: $.definitions.ClientGroupProvisioningState.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Failed' Description:'Failed'"
+    from: EventGrid.json
+    where: $.definitions.ClientGroupProvisioningState.x-ms-enum.values[5].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleted' Description:'Deleted'"
+    from: EventGrid.json
+    where: $.definitions.ClientGroupProvisioningState.x-ms-enum.values[6].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Enabled' Description:'Enabled'"
+    from: EventGrid.json
+    where: $.definitions.ClientProperties.properties.state.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Disabled' Description:'Disabled'"
+    from: EventGrid.json
+    where: $.definitions.ClientProperties.properties.state.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Creating' Description:'Creating'"
+    from: EventGrid.json
+    where: $.definitions.ClientProvisioningState.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Updating' Description:'Updating'"
+    from: EventGrid.json
+    where: $.definitions.ClientProvisioningState.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleting' Description:'Deleting'"
+    from: EventGrid.json
+    where: $.definitions.ClientProvisioningState.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Succeeded' Description:'Succeeded'"
+    from: EventGrid.json
+    where: $.definitions.ClientProvisioningState.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Canceled' Description:'Canceled'"
+    from: EventGrid.json
+    where: $.definitions.ClientProvisioningState.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Failed' Description:'Failed'"
+    from: EventGrid.json
+    where: $.definitions.ClientProvisioningState.x-ms-enum.values[5].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleted' Description:'Deleted'"
+    from: EventGrid.json
+    where: $.definitions.ClientProvisioningState.x-ms-enum.values[6].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Disabled' Description:'Disabled'"
+    from: EventGrid.json
+    where: $.definitions.ConfidentialComputeMode.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Enabled' Description:'Enabled'"
+    from: EventGrid.json
+    where: $.definitions.ConfidentialComputeMode.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'SystemAssigned' Description:'SystemAssigned'"
+    from: EventGrid.json
+    where: $.definitions.CustomDomainIdentityType.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'UserAssigned' Description:'UserAssigned'"
+    from: EventGrid.json
+    where: $.definitions.CustomDomainIdentityType.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Pending' Description:'Pending'"
+    from: EventGrid.json
+    where: $.definitions.CustomDomainValidationState.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Approved' Description:'Approved'"
+    from: EventGrid.json
+    where: $.definitions.CustomDomainValidationState.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'ErrorRetrievingDnsRecord' Description:'ErrorRetrievingDnsRecord'"
+    from: EventGrid.json
+    where: $.definitions.CustomDomainValidationState.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'SystemAssigned' Description:'SystemAssigned'"
+    from: EventGrid.json
+    where: $.definitions.CustomJwtAuthenticationManagedIdentityType.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'UserAssigned' Description:'UserAssigned'"
+    from: EventGrid.json
+    where: $.definitions.CustomJwtAuthenticationManagedIdentityType.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'SystemAssigned' Description:'SystemAssigned'"
+    from: EventGrid.json
+    where: $.definitions.CustomWebhookAuthenticationManagedIdentityType.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'UserAssigned' Description:'UserAssigned'"
+    from: EventGrid.json
+    where: $.definitions.CustomWebhookAuthenticationManagedIdentityType.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'WithinGeopair' Description:'WithinGeopair'"
+    from: EventGrid.json
+    where: $.definitions.DataResidencyBoundary.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'WithinRegion' Description:'WithinRegion'"
+    from: EventGrid.json
+    where: $.definitions.DataResidencyBoundary.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'StorageBlob' Description:'StorageBlob'"
+    from: EventGrid.json
+    where: $.definitions.DeadLetterEndPointType.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Static' Description:'Static'"
+    from: EventGrid.json
+    where: $.definitions.DeliveryAttributeMappingType.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Dynamic' Description:'Dynamic'"
+    from: EventGrid.json
+    where: $.definitions.DeliveryAttributeMappingType.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Queue' Description:'Queue'"
+    from: EventGrid.json
+    where: $.definitions.DeliveryMode.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Push' Description:'Push'"
+    from: EventGrid.json
+    where: $.definitions.DeliveryMode.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'CloudEventSchemaV1_0' Description:'CloudEventSchemaV1_0'"
+    from: EventGrid.json
+    where: $.definitions.DeliverySchema.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'EventGridSchema' Description:'EventGridSchema'"
+    from: EventGrid.json
+    where: $.definitions.DomainProperties.properties.inputSchema.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'CustomEventSchema' Description:'CustomEventSchema'"
+    from: EventGrid.json
+    where: $.definitions.DomainProperties.properties.inputSchema.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'CloudEventSchemaV1_0' Description:'CloudEventSchemaV1_0'"
+    from: EventGrid.json
+    where: $.definitions.DomainProperties.properties.inputSchema.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Enabled' Description:'Enabled'"
+    from: EventGrid.json
+    where: $.definitions.DomainProperties.properties.publicNetworkAccess.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Disabled' Description:'Disabled'"
+    from: EventGrid.json
+    where: $.definitions.DomainProperties.properties.publicNetworkAccess.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'SecuredByPerimeter' Description:'SecuredByPerimeter'"
+    from: EventGrid.json
+    where: $.definitions.DomainProperties.properties.publicNetworkAccess.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Creating' Description:'Creating'"
+    from: EventGrid.json
+    where: $.definitions.DomainProvisioningState.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Updating' Description:'Updating'"
+    from: EventGrid.json
+    where: $.definitions.DomainProvisioningState.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleting' Description:'Deleting'"
+    from: EventGrid.json
+    where: $.definitions.DomainProvisioningState.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Succeeded' Description:'Succeeded'"
+    from: EventGrid.json
+    where: $.definitions.DomainProvisioningState.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Canceled' Description:'Canceled'"
+    from: EventGrid.json
+    where: $.definitions.DomainProvisioningState.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Failed' Description:'Failed'"
+    from: EventGrid.json
+    where: $.definitions.DomainProvisioningState.x-ms-enum.values[5].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Creating' Description:'Creating'"
+    from: EventGrid.json
+    where: $.definitions.DomainTopicProvisioningState.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Updating' Description:'Updating'"
+    from: EventGrid.json
+    where: $.definitions.DomainTopicProvisioningState.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleting' Description:'Deleting'"
+    from: EventGrid.json
+    where: $.definitions.DomainTopicProvisioningState.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Succeeded' Description:'Succeeded'"
+    from: EventGrid.json
+    where: $.definitions.DomainTopicProvisioningState.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Canceled' Description:'Canceled'"
+    from: EventGrid.json
+    where: $.definitions.DomainTopicProvisioningState.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Failed' Description:'Failed'"
+    from: EventGrid.json
+    where: $.definitions.DomainTopicProvisioningState.x-ms-enum.values[5].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Enabled' Description:'Enabled'"
+    from: EventGrid.json
+    where: $.definitions.DomainUpdateParameterProperties.properties.publicNetworkAccess.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Disabled' Description:'Disabled'"
+    from: EventGrid.json
+    where: $.definitions.DomainUpdateParameterProperties.properties.publicNetworkAccess.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'SecuredByPerimeter' Description:'SecuredByPerimeter'"
+    from: EventGrid.json
+    where: $.definitions.DomainUpdateParameterProperties.properties.publicNetworkAccess.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'WebHook' Description:'WebHook'"
+    from: EventGrid.json
+    where: $.definitions.EndpointType.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'EventHub' Description:'EventHub'"
+    from: EventGrid.json
+    where: $.definitions.EndpointType.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'StorageQueue' Description:'StorageQueue'"
+    from: EventGrid.json
+    where: $.definitions.EndpointType.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'HybridConnection' Description:'HybridConnection'"
+    from: EventGrid.json
+    where: $.definitions.EndpointType.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'ServiceBusQueue' Description:'ServiceBusQueue'"
+    from: EventGrid.json
+    where: $.definitions.EndpointType.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'ServiceBusTopic' Description:'ServiceBusTopic'"
+    from: EventGrid.json
+    where: $.definitions.EndpointType.x-ms-enum.values[5].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'AzureFunction' Description:'AzureFunction'"
+    from: EventGrid.json
+    where: $.definitions.EndpointType.x-ms-enum.values[6].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'PartnerDestination' Description:'PartnerDestination'"
+    from: EventGrid.json
+    where: $.definitions.EndpointType.x-ms-enum.values[7].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'MonitorAlert' Description:'MonitorAlert'"
+    from: EventGrid.json
+    where: $.definitions.EndpointType.x-ms-enum.values[8].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'NamespaceTopic' Description:'NamespaceTopic'"
+    from: EventGrid.json
+    where: $.definitions.EndpointType.x-ms-enum.values[9].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Inline' Description:'Inline'"
+    from: EventGrid.json
+    where: $.definitions.EventDefinitionKind.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'EventGridSchema' Description:'EventGridSchema'"
+    from: EventGrid.json
+    where: $.definitions.EventDeliverySchema.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'CustomInputSchema' Description:'CustomInputSchema'"
+    from: EventGrid.json
+    where: $.definitions.EventDeliverySchema.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'CloudEventSchemaV1_0' Description:'CloudEventSchemaV1_0'"
+    from: EventGrid.json
+    where: $.definitions.EventDeliverySchema.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'SystemAssigned' Description:'SystemAssigned'"
+    from: EventGrid.json
+    where: $.definitions.EventSubscriptionIdentityType.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'UserAssigned' Description:'UserAssigned'"
+    from: EventGrid.json
+    where: $.definitions.EventSubscriptionIdentityType.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'EventGridSchema' Description:'EventGridSchema'"
+    from: EventGrid.json
+    where: $.definitions.EventSubscriptionProperties.properties.eventDeliverySchema.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'CustomInputSchema' Description:'CustomInputSchema'"
+    from: EventGrid.json
+    where: $.definitions.EventSubscriptionProperties.properties.eventDeliverySchema.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'CloudEventSchemaV1_0' Description:'CloudEventSchemaV1_0'"
+    from: EventGrid.json
+    where: $.definitions.EventSubscriptionProperties.properties.eventDeliverySchema.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Creating' Description:'Creating'"
+    from: EventGrid.json
+    where: $.definitions.EventSubscriptionProvisioningState.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Updating' Description:'Updating'"
+    from: EventGrid.json
+    where: $.definitions.EventSubscriptionProvisioningState.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleting' Description:'Deleting'"
+    from: EventGrid.json
+    where: $.definitions.EventSubscriptionProvisioningState.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Succeeded' Description:'Succeeded'"
+    from: EventGrid.json
+    where: $.definitions.EventSubscriptionProvisioningState.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Canceled' Description:'Canceled'"
+    from: EventGrid.json
+    where: $.definitions.EventSubscriptionProvisioningState.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Failed' Description:'Failed'"
+    from: EventGrid.json
+    where: $.definitions.EventSubscriptionProvisioningState.x-ms-enum.values[5].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'AwaitingManualAction' Description:'AwaitingManualAction'"
+    from: EventGrid.json
+    where: $.definitions.EventSubscriptionProvisioningState.x-ms-enum.values[6].description
+
+  - code: GuidUsage
+    reason: "Usage of Guid is not recommended. If GUIDs are absolutely required in your service, please get sign off from the Azure API review board."
+    from: EventGrid.json
+    where: $.definitions.FederatedIdentityCredentialInfo.properties.federatedClientId.format
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'NumberIn' Description:'NumberIn'"
+    from: EventGrid.json
+    where: $.definitions.FilterOperatorType.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'NumberNotIn' Description:'NumberNotIn'"
+    from: EventGrid.json
+    where: $.definitions.FilterOperatorType.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'NumberLessThan' Description:'NumberLessThan'"
+    from: EventGrid.json
+    where: $.definitions.FilterOperatorType.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'NumberGreaterThan' Description:'NumberGreaterThan'"
+    from: EventGrid.json
+    where: $.definitions.FilterOperatorType.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'NumberLessThanOrEquals' Description:'NumberLessThanOrEquals'"
+    from: EventGrid.json
+    where: $.definitions.FilterOperatorType.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'NumberGreaterThanOrEquals' Description:'NumberGreaterThanOrEquals'"
+    from: EventGrid.json
+    where: $.definitions.FilterOperatorType.x-ms-enum.values[5].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'BoolEquals' Description:'BoolEquals'"
+    from: EventGrid.json
+    where: $.definitions.FilterOperatorType.x-ms-enum.values[6].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'StringIn' Description:'StringIn'"
+    from: EventGrid.json
+    where: $.definitions.FilterOperatorType.x-ms-enum.values[7].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'StringNotIn' Description:'StringNotIn'"
+    from: EventGrid.json
+    where: $.definitions.FilterOperatorType.x-ms-enum.values[8].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'StringBeginsWith' Description:'StringBeginsWith'"
+    from: EventGrid.json
+    where: $.definitions.FilterOperatorType.x-ms-enum.values[9].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'StringEndsWith' Description:'StringEndsWith'"
+    from: EventGrid.json
+    where: $.definitions.FilterOperatorType.x-ms-enum.values[10].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'StringContains' Description:'StringContains'"
+    from: EventGrid.json
+    where: $.definitions.FilterOperatorType.x-ms-enum.values[11].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'NumberInRange' Description:'NumberInRange'"
+    from: EventGrid.json
+    where: $.definitions.FilterOperatorType.x-ms-enum.values[12].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'NumberNotInRange' Description:'NumberNotInRange'"
+    from: EventGrid.json
+    where: $.definitions.FilterOperatorType.x-ms-enum.values[13].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'StringNotBeginsWith' Description:'StringNotBeginsWith'"
+    from: EventGrid.json
+    where: $.definitions.FilterOperatorType.x-ms-enum.values[14].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'StringNotEndsWith' Description:'StringNotEndsWith'"
+    from: EventGrid.json
+    where: $.definitions.FilterOperatorType.x-ms-enum.values[15].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'StringNotContains' Description:'StringNotContains'"
+    from: EventGrid.json
+    where: $.definitions.FilterOperatorType.x-ms-enum.values[16].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'IsNullOrUndefined' Description:'IsNullOrUndefined'"
+    from: EventGrid.json
+    where: $.definitions.FilterOperatorType.x-ms-enum.values[17].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'IsNotNull' Description:'IsNotNull'"
+    from: EventGrid.json
+    where: $.definitions.FilterOperatorType.x-ms-enum.values[18].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'None' Description:'None'"
+    from: EventGrid.json
+    where: $.definitions.IdentityType.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'SystemAssigned' Description:'SystemAssigned'"
+    from: EventGrid.json
+    where: $.definitions.IdentityType.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'UserAssigned' Description:'UserAssigned'"
+    from: EventGrid.json
+    where: $.definitions.IdentityType.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'SystemAssigned, UserAssigned' Description:'SystemAssigned, UserAssigned'"
+    from: EventGrid.json
+    where: $.definitions.IdentityType.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Json' Description:'Json'"
+    from: EventGrid.json
+    where: $.definitions.InputSchemaMappingType.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Allow' Description:'Allow'"
+    from: EventGrid.json
+    where: $.definitions.IpActionType.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'SystemAssigned' Description:'SystemAssigned'"
+    from: EventGrid.json
+    where: $.definitions.KeyEncryptionIdentityType.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'UserAssigned' Description:'UserAssigned'"
+    from: EventGrid.json
+    where: $.definitions.KeyEncryptionIdentityType.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Active' Description:'Active'"
+    from: EventGrid.json
+    where: $.definitions.KeyEncryptionKeyStatus.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Revoked' Description:'Revoked'"
+    from: EventGrid.json
+    where: $.definitions.KeyEncryptionKeyStatus.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Sev0' Description:'Sev0'"
+    from: EventGrid.json
+    where: $.definitions.MonitorAlertSeverity.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Sev1' Description:'Sev1'"
+    from: EventGrid.json
+    where: $.definitions.MonitorAlertSeverity.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Sev2' Description:'Sev2'"
+    from: EventGrid.json
+    where: $.definitions.MonitorAlertSeverity.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Sev3' Description:'Sev3'"
+    from: EventGrid.json
+    where: $.definitions.MonitorAlertSeverity.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Sev4' Description:'Sev4'"
+    from: EventGrid.json
+    where: $.definitions.MonitorAlertSeverity.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Creating' Description:'Creating'"
+    from: EventGrid.json
+    where: $.definitions.NamespaceProvisioningState.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Updating' Description:'Updating'"
+    from: EventGrid.json
+    where: $.definitions.NamespaceProvisioningState.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleting' Description:'Deleting'"
+    from: EventGrid.json
+    where: $.definitions.NamespaceProvisioningState.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Succeeded' Description:'Succeeded'"
+    from: EventGrid.json
+    where: $.definitions.NamespaceProvisioningState.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Canceled' Description:'Canceled'"
+    from: EventGrid.json
+    where: $.definitions.NamespaceProvisioningState.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Failed' Description:'Failed'"
+    from: EventGrid.json
+    where: $.definitions.NamespaceProvisioningState.x-ms-enum.values[5].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleted' Description:'Deleted'"
+    from: EventGrid.json
+    where: $.definitions.NamespaceProvisioningState.x-ms-enum.values[6].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'DeleteFailed' Description:'DeleteFailed'"
+    from: EventGrid.json
+    where: $.definitions.NamespaceProvisioningState.x-ms-enum.values[7].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'CreateFailed' Description:'CreateFailed'"
+    from: EventGrid.json
+    where: $.definitions.NamespaceProvisioningState.x-ms-enum.values[8].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'UpdatedFailed' Description:'UpdatedFailed'"
+    from: EventGrid.json
+    where: $.definitions.NamespaceProvisioningState.x-ms-enum.values[9].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'CloudEventSchemaV1_0' Description:'CloudEventSchemaV1_0'"
+    from: EventGrid.json
+    where: $.definitions.NamespaceTopicProperties.properties.inputSchema.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Creating' Description:'Creating'"
+    from: EventGrid.json
+    where: $.definitions.NamespaceTopicProvisioningState.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Updating' Description:'Updating'"
+    from: EventGrid.json
+    where: $.definitions.NamespaceTopicProvisioningState.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleting' Description:'Deleting'"
+    from: EventGrid.json
+    where: $.definitions.NamespaceTopicProvisioningState.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Succeeded' Description:'Succeeded'"
+    from: EventGrid.json
+    where: $.definitions.NamespaceTopicProvisioningState.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Canceled' Description:'Canceled'"
+    from: EventGrid.json
+    where: $.definitions.NamespaceTopicProvisioningState.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Failed' Description:'Failed'"
+    from: EventGrid.json
+    where: $.definitions.NamespaceTopicProvisioningState.x-ms-enum.values[5].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleted' Description:'Deleted'"
+    from: EventGrid.json
+    where: $.definitions.NamespaceTopicProvisioningState.x-ms-enum.values[6].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'DeleteFailed' Description:'DeleteFailed'"
+    from: EventGrid.json
+    where: $.definitions.NamespaceTopicProvisioningState.x-ms-enum.values[7].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'CreateFailed' Description:'CreateFailed'"
+    from: EventGrid.json
+    where: $.definitions.NamespaceTopicProvisioningState.x-ms-enum.values[8].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'UpdatedFailed' Description:'UpdatedFailed'"
+    from: EventGrid.json
+    where: $.definitions.NamespaceTopicProvisioningState.x-ms-enum.values[9].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Learning' Description:'Learning'"
+    from: EventGrid.json
+    where: $.definitions.NetworkSecurityPerimeterAssociationAccessMode.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Enforced' Description:'Enforced'"
+    from: EventGrid.json
+    where: $.definitions.NetworkSecurityPerimeterAssociationAccessMode.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Audit' Description:'Audit'"
+    from: EventGrid.json
+    where: $.definitions.NetworkSecurityPerimeterAssociationAccessMode.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Creating' Description:'Creating'"
+    from: EventGrid.json
+    where: $.definitions.NetworkSecurityPerimeterConfigProvisioningState.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Updating' Description:'Updating'"
+    from: EventGrid.json
+    where: $.definitions.NetworkSecurityPerimeterConfigProvisioningState.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleting' Description:'Deleting'"
+    from: EventGrid.json
+    where: $.definitions.NetworkSecurityPerimeterConfigProvisioningState.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Succeeded' Description:'Succeeded'"
+    from: EventGrid.json
+    where: $.definitions.NetworkSecurityPerimeterConfigProvisioningState.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Canceled' Description:'Canceled'"
+    from: EventGrid.json
+    where: $.definitions.NetworkSecurityPerimeterConfigProvisioningState.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Failed' Description:'Failed'"
+    from: EventGrid.json
+    where: $.definitions.NetworkSecurityPerimeterConfigProvisioningState.x-ms-enum.values[5].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleted' Description:'Deleted'"
+    from: EventGrid.json
+    where: $.definitions.NetworkSecurityPerimeterConfigProvisioningState.x-ms-enum.values[6].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Accepted' Description:'Accepted'"
+    from: EventGrid.json
+    where: $.definitions.NetworkSecurityPerimeterConfigProvisioningState.x-ms-enum.values[7].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Warning' Description:'Warning'"
+    from: EventGrid.json
+    where: $.definitions.NetworkSecurityPerimeterConfigurationIssueSeverity.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Error' Description:'Error'"
+    from: EventGrid.json
+    where: $.definitions.NetworkSecurityPerimeterConfigurationIssueSeverity.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'MissingPerimeterConfiguration' Description:'MissingPerimeterConfiguration'"
+    from: EventGrid.json
+    where: $.definitions.NetworkSecurityPerimeterConfigurationIssueType.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'MissingIdentityConfiguration' Description:'MissingIdentityConfiguration'"
+    from: EventGrid.json
+    where: $.definitions.NetworkSecurityPerimeterConfigurationIssueType.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'ConfigurationPropagationFailure' Description:'ConfigurationPropagationFailure'"
+    from: EventGrid.json
+    where: $.definitions.NetworkSecurityPerimeterConfigurationIssueType.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Other' Description:'Other'"
+    from: EventGrid.json
+    where: $.definitions.NetworkSecurityPerimeterConfigurationIssueType.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Inbound' Description:'Inbound'"
+    from: EventGrid.json
+    where: $.definitions.NetworkSecurityPerimeterProfileAccessRuleDirection.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Outbound' Description:'Outbound'"
+    from: EventGrid.json
+    where: $.definitions.NetworkSecurityPerimeterProfileAccessRuleDirection.x-ms-enum.values[1].description
+
+  - code: GuidUsage
+    reason: "Usage of Guid is not recommended. If GUIDs are absolutely required in your service, please get sign off from the Azure API review board."
+    from: EventGrid.json
+    where: $.definitions.Partner.properties.partnerRegistrationImmutableId.format
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'AzureAD' Description:'AzureAD'"
+    from: EventGrid.json
+    where: $.definitions.PartnerClientAuthentication.properties.clientAuthenticationType.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Creating' Description:'Creating'"
+    from: EventGrid.json
+    where: $.definitions.PartnerConfigurationProvisioningState.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Updating' Description:'Updating'"
+    from: EventGrid.json
+    where: $.definitions.PartnerConfigurationProvisioningState.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleting' Description:'Deleting'"
+    from: EventGrid.json
+    where: $.definitions.PartnerConfigurationProvisioningState.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Succeeded' Description:'Succeeded'"
+    from: EventGrid.json
+    where: $.definitions.PartnerConfigurationProvisioningState.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Canceled' Description:'Canceled'"
+    from: EventGrid.json
+    where: $.definitions.PartnerConfigurationProvisioningState.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Failed' Description:'Failed'"
+    from: EventGrid.json
+    where: $.definitions.PartnerConfigurationProvisioningState.x-ms-enum.values[5].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'NeverActivated' Description:'NeverActivated'"
+    from: EventGrid.json
+    where: $.definitions.PartnerDestinationActivationState.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Activated' Description:'Activated'"
+    from: EventGrid.json
+    where: $.definitions.PartnerDestinationActivationState.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'WebHook' Description:'WebHook'"
+    from: EventGrid.json
+    where: $.definitions.PartnerDestinationInfo.properties.endpointType.x-ms-enum.values[0].description
+
+  - code: GuidUsage
+    reason: "Usage of Guid is not recommended. If GUIDs are absolutely required in your service, please get sign off from the Azure API review board."
+    from: EventGrid.json
+    where: $.definitions.PartnerDestinationProperties.properties.partnerRegistrationImmutableId.format
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Creating' Description:'Creating'"
+    from: EventGrid.json
+    where: $.definitions.PartnerDestinationProvisioningState.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Updating' Description:'Updating'"
+    from: EventGrid.json
+    where: $.definitions.PartnerDestinationProvisioningState.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleting' Description:'Deleting'"
+    from: EventGrid.json
+    where: $.definitions.PartnerDestinationProvisioningState.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Succeeded' Description:'Succeeded'"
+    from: EventGrid.json
+    where: $.definitions.PartnerDestinationProvisioningState.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Canceled' Description:'Canceled'"
+    from: EventGrid.json
+    where: $.definitions.PartnerDestinationProvisioningState.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Failed' Description:'Failed'"
+    from: EventGrid.json
+    where: $.definitions.PartnerDestinationProvisioningState.x-ms-enum.values[5].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'IdleDueToMirroredChannelResourceDeletion' Description:'IdleDueToMirroredChannelResourceDeletion'"
+    from: EventGrid.json
+    where: $.definitions.PartnerDestinationProvisioningState.x-ms-enum.values[6].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Enabled' Description:'Enabled'"
+    from: EventGrid.json
+    where: $.definitions.PartnerNamespaceProperties.properties.publicNetworkAccess.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Disabled' Description:'Disabled'"
+    from: EventGrid.json
+    where: $.definitions.PartnerNamespaceProperties.properties.publicNetworkAccess.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'SecuredByPerimeter' Description:'SecuredByPerimeter'"
+    from: EventGrid.json
+    where: $.definitions.PartnerNamespaceProperties.properties.publicNetworkAccess.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'SourceEventAttribute' Description:'SourceEventAttribute'"
+    from: EventGrid.json
+    where: $.definitions.PartnerNamespaceProperties.properties.partnerTopicRoutingMode.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'ChannelNameHeader' Description:'ChannelNameHeader'"
+    from: EventGrid.json
+    where: $.definitions.PartnerNamespaceProperties.properties.partnerTopicRoutingMode.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Creating' Description:'Creating'"
+    from: EventGrid.json
+    where: $.definitions.PartnerNamespaceProvisioningState.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Updating' Description:'Updating'"
+    from: EventGrid.json
+    where: $.definitions.PartnerNamespaceProvisioningState.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleting' Description:'Deleting'"
+    from: EventGrid.json
+    where: $.definitions.PartnerNamespaceProvisioningState.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Succeeded' Description:'Succeeded'"
+    from: EventGrid.json
+    where: $.definitions.PartnerNamespaceProvisioningState.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Canceled' Description:'Canceled'"
+    from: EventGrid.json
+    where: $.definitions.PartnerNamespaceProvisioningState.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Failed' Description:'Failed'"
+    from: EventGrid.json
+    where: $.definitions.PartnerNamespaceProvisioningState.x-ms-enum.values[5].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Enabled' Description:'Enabled'"
+    from: EventGrid.json
+    where: $.definitions.PartnerNamespaceUpdateParameterProperties.properties.publicNetworkAccess.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Disabled' Description:'Disabled'"
+    from: EventGrid.json
+    where: $.definitions.PartnerNamespaceUpdateParameterProperties.properties.publicNetworkAccess.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'SecuredByPerimeter' Description:'SecuredByPerimeter'"
+    from: EventGrid.json
+    where: $.definitions.PartnerNamespaceUpdateParameterProperties.properties.publicNetworkAccess.x-ms-enum.values[2].description
+
+  - code: GuidUsage
+    reason: "Usage of Guid is not recommended. If GUIDs are absolutely required in your service, please get sign off from the Azure API review board."
+    from: EventGrid.json
+    where: $.definitions.PartnerRegistrationProperties.properties.partnerRegistrationImmutableId.format
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Creating' Description:'Creating'"
+    from: EventGrid.json
+    where: $.definitions.PartnerRegistrationProvisioningState.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Updating' Description:'Updating'"
+    from: EventGrid.json
+    where: $.definitions.PartnerRegistrationProvisioningState.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleting' Description:'Deleting'"
+    from: EventGrid.json
+    where: $.definitions.PartnerRegistrationProvisioningState.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Succeeded' Description:'Succeeded'"
+    from: EventGrid.json
+    where: $.definitions.PartnerRegistrationProvisioningState.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Canceled' Description:'Canceled'"
+    from: EventGrid.json
+    where: $.definitions.PartnerRegistrationProvisioningState.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Failed' Description:'Failed'"
+    from: EventGrid.json
+    where: $.definitions.PartnerRegistrationProvisioningState.x-ms-enum.values[5].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'NeverActivated' Description:'NeverActivated'"
+    from: EventGrid.json
+    where: $.definitions.PartnerTopicActivationState.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Activated' Description:'Activated'"
+    from: EventGrid.json
+    where: $.definitions.PartnerTopicActivationState.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deactivated' Description:'Deactivated'"
+    from: EventGrid.json
+    where: $.definitions.PartnerTopicActivationState.x-ms-enum.values[2].description
+
+  - code: GuidUsage
+    reason: "Usage of Guid is not recommended. If GUIDs are absolutely required in your service, please get sign off from the Azure API review board."
+    from: EventGrid.json
+    where: $.definitions.PartnerTopicProperties.properties.partnerRegistrationImmutableId.format
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Creating' Description:'Creating'"
+    from: EventGrid.json
+    where: $.definitions.PartnerTopicProvisioningState.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Updating' Description:'Updating'"
+    from: EventGrid.json
+    where: $.definitions.PartnerTopicProvisioningState.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleting' Description:'Deleting'"
+    from: EventGrid.json
+    where: $.definitions.PartnerTopicProvisioningState.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Succeeded' Description:'Succeeded'"
+    from: EventGrid.json
+    where: $.definitions.PartnerTopicProvisioningState.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Canceled' Description:'Canceled'"
+    from: EventGrid.json
+    where: $.definitions.PartnerTopicProvisioningState.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Failed' Description:'Failed'"
+    from: EventGrid.json
+    where: $.definitions.PartnerTopicProvisioningState.x-ms-enum.values[5].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'IdleDueToMirroredChannelResourceDeletion' Description:'IdleDueToMirroredChannelResourceDeletion'"
+    from: EventGrid.json
+    where: $.definitions.PartnerTopicProvisioningState.x-ms-enum.values[6].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'WebHook' Description:'WebHook'"
+    from: EventGrid.json
+    where: $.definitions.PartnerUpdateDestinationInfo.properties.endpointType.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Creating' Description:'Creating'"
+    from: EventGrid.json
+    where: $.definitions.PermissionBindingProvisioningState.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Updating' Description:'Updating'"
+    from: EventGrid.json
+    where: $.definitions.PermissionBindingProvisioningState.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleting' Description:'Deleting'"
+    from: EventGrid.json
+    where: $.definitions.PermissionBindingProvisioningState.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Succeeded' Description:'Succeeded'"
+    from: EventGrid.json
+    where: $.definitions.PermissionBindingProvisioningState.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Canceled' Description:'Canceled'"
+    from: EventGrid.json
+    where: $.definitions.PermissionBindingProvisioningState.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Failed' Description:'Failed'"
+    from: EventGrid.json
+    where: $.definitions.PermissionBindingProvisioningState.x-ms-enum.values[5].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleted' Description:'Deleted'"
+    from: EventGrid.json
+    where: $.definitions.PermissionBindingProvisioningState.x-ms-enum.values[6].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Publisher' Description:'Publisher'"
+    from: EventGrid.json
+    where: $.definitions.PermissionType.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Subscriber' Description:'Subscriber'"
+    from: EventGrid.json
+    where: $.definitions.PermissionType.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Pending' Description:'Pending'"
+    from: EventGrid.json
+    where: $.definitions.PersistedConnectionStatus.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Approved' Description:'Approved'"
+    from: EventGrid.json
+    where: $.definitions.PersistedConnectionStatus.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Rejected' Description:'Rejected'"
+    from: EventGrid.json
+    where: $.definitions.PersistedConnectionStatus.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Disconnected' Description:'Disconnected'"
+    from: EventGrid.json
+    where: $.definitions.PersistedConnectionStatus.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Enabled' Description:'Enabled'"
+    from: EventGrid.json
+    where: $.definitions.PublicNetworkAccess.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Disabled' Description:'Disabled'"
+    from: EventGrid.json
+    where: $.definitions.PublicNetworkAccess.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'SecuredByPerimeter' Description:'SecuredByPerimeter'"
+    from: EventGrid.json
+    where: $.definitions.PublicNetworkAccess.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Custom' Description:'Custom'"
+    from: EventGrid.json
+    where: $.definitions.PublisherType.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'NeverActivated' Description:'NeverActivated'"
+    from: EventGrid.json
+    where: $.definitions.ReadinessState.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Activated' Description:'Activated'"
+    from: EventGrid.json
+    where: $.definitions.ReadinessState.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Creating' Description:'Creating'"
+    from: EventGrid.json
+    where: $.definitions.ResourceProvisioningState.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Updating' Description:'Updating'"
+    from: EventGrid.json
+    where: $.definitions.ResourceProvisioningState.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleting' Description:'Deleting'"
+    from: EventGrid.json
+    where: $.definitions.ResourceProvisioningState.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Succeeded' Description:'Succeeded'"
+    from: EventGrid.json
+    where: $.definitions.ResourceProvisioningState.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Canceled' Description:'Canceled'"
+    from: EventGrid.json
+    where: $.definitions.ResourceProvisioningState.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Failed' Description:'Failed'"
+    from: EventGrid.json
+    where: $.definitions.ResourceProvisioningState.x-ms-enum.values[5].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'RegionalResource' Description:'RegionalResource'"
+    from: EventGrid.json
+    where: $.definitions.ResourceRegionType.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'GlobalResource' Description:'GlobalResource'"
+    from: EventGrid.json
+    where: $.definitions.ResourceRegionType.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Basic' Description:'Basic'"
+    from: EventGrid.json
+    where: $.definitions.ResourceSku.properties.name.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Premium' Description:'Premium'"
+    from: EventGrid.json
+    where: $.definitions.ResourceSku.properties.name.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'None' Description:'None'"
+    from: EventGrid.json
+    where: $.definitions.RoutingIdentityType.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'SystemAssigned' Description:'SystemAssigned'"
+    from: EventGrid.json
+    where: $.definitions.RoutingIdentityType.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'UserAssigned' Description:'UserAssigned'"
+    from: EventGrid.json
+    where: $.definitions.RoutingIdentityType.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Standard' Description:'Standard'"
+    from: EventGrid.json
+    where: $.definitions.SkuName.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'String' Description:'String'"
+    from: EventGrid.json
+    where: $.definitions.StaticRoutingEnrichmentType.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Creating' Description:'Creating'"
+    from: EventGrid.json
+    where: $.definitions.SubscriptionProvisioningState.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Updating' Description:'Updating'"
+    from: EventGrid.json
+    where: $.definitions.SubscriptionProvisioningState.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleting' Description:'Deleting'"
+    from: EventGrid.json
+    where: $.definitions.SubscriptionProvisioningState.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Succeeded' Description:'Succeeded'"
+    from: EventGrid.json
+    where: $.definitions.SubscriptionProvisioningState.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Canceled' Description:'Canceled'"
+    from: EventGrid.json
+    where: $.definitions.SubscriptionProvisioningState.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Failed' Description:'Failed'"
+    from: EventGrid.json
+    where: $.definitions.SubscriptionProvisioningState.x-ms-enum.values[5].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'AwaitingManualAction' Description:'AwaitingManualAction'"
+    from: EventGrid.json
+    where: $.definitions.SubscriptionProvisioningState.x-ms-enum.values[6].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleted' Description:'Deleted'"
+    from: EventGrid.json
+    where: $.definitions.SubscriptionProvisioningState.x-ms-enum.values[7].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'DeleteFailed' Description:'DeleteFailed'"
+    from: EventGrid.json
+    where: $.definitions.SubscriptionProvisioningState.x-ms-enum.values[8].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'CreateFailed' Description:'CreateFailed'"
+    from: EventGrid.json
+    where: $.definitions.SubscriptionProvisioningState.x-ms-enum.values[9].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'UpdatedFailed' Description:'UpdatedFailed'"
+    from: EventGrid.json
+    where: $.definitions.SubscriptionProvisioningState.x-ms-enum.values[10].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'1.0' Description:'1.0'"
+    from: EventGrid.json
+    where: $.definitions.TlsVersion.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'1.1' Description:'1.1'"
+    from: EventGrid.json
+    where: $.definitions.TlsVersion.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'1.2' Description:'1.2'"
+    from: EventGrid.json
+    where: $.definitions.TlsVersion.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'1.3' Description:'1.3'"
+    from: EventGrid.json
+    where: $.definitions.TlsVersion.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Azure' Description:'Azure'"
+    from: EventGrid.json
+    where: $.definitions.Topic.properties.kind.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'AzureArc' Description:'AzureArc'"
+    from: EventGrid.json
+    where: $.definitions.Topic.properties.kind.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'EventGridSchema' Description:'EventGridSchema'"
+    from: EventGrid.json
+    where: $.definitions.TopicProperties.properties.inputSchema.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'CustomEventSchema' Description:'CustomEventSchema'"
+    from: EventGrid.json
+    where: $.definitions.TopicProperties.properties.inputSchema.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'CloudEventSchemaV1_0' Description:'CloudEventSchemaV1_0'"
+    from: EventGrid.json
+    where: $.definitions.TopicProperties.properties.inputSchema.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Enabled' Description:'Enabled'"
+    from: EventGrid.json
+    where: $.definitions.TopicProperties.properties.publicNetworkAccess.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Disabled' Description:'Disabled'"
+    from: EventGrid.json
+    where: $.definitions.TopicProperties.properties.publicNetworkAccess.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'SecuredByPerimeter' Description:'SecuredByPerimeter'"
+    from: EventGrid.json
+    where: $.definitions.TopicProperties.properties.publicNetworkAccess.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Creating' Description:'Creating'"
+    from: EventGrid.json
+    where: $.definitions.TopicProvisioningState.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Updating' Description:'Updating'"
+    from: EventGrid.json
+    where: $.definitions.TopicProvisioningState.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleting' Description:'Deleting'"
+    from: EventGrid.json
+    where: $.definitions.TopicProvisioningState.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Succeeded' Description:'Succeeded'"
+    from: EventGrid.json
+    where: $.definitions.TopicProvisioningState.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Canceled' Description:'Canceled'"
+    from: EventGrid.json
+    where: $.definitions.TopicProvisioningState.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Failed' Description:'Failed'"
+    from: EventGrid.json
+    where: $.definitions.TopicProvisioningState.x-ms-enum.values[5].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Creating' Description:'Creating'"
+    from: EventGrid.json
+    where: $.definitions.TopicSpaceProvisioningState.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Updating' Description:'Updating'"
+    from: EventGrid.json
+    where: $.definitions.TopicSpaceProvisioningState.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleting' Description:'Deleting'"
+    from: EventGrid.json
+    where: $.definitions.TopicSpaceProvisioningState.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Succeeded' Description:'Succeeded'"
+    from: EventGrid.json
+    where: $.definitions.TopicSpaceProvisioningState.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Canceled' Description:'Canceled'"
+    from: EventGrid.json
+    where: $.definitions.TopicSpaceProvisioningState.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Failed' Description:'Failed'"
+    from: EventGrid.json
+    where: $.definitions.TopicSpaceProvisioningState.x-ms-enum.values[5].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleted' Description:'Deleted'"
+    from: EventGrid.json
+    where: $.definitions.TopicSpaceProvisioningState.x-ms-enum.values[6].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Disabled' Description:'Disabled'"
+    from: EventGrid.json
+    where: $.definitions.TopicSpacesConfiguration.properties.state.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Enabled' Description:'Enabled'"
+    from: EventGrid.json
+    where: $.definitions.TopicSpacesConfiguration.properties.state.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Disabled' Description:'Disabled'"
+    from: EventGrid.json
+    where: $.definitions.TopicSpacesConfigurationState.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Enabled' Description:'Enabled'"
+    from: EventGrid.json
+    where: $.definitions.TopicSpacesConfigurationState.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Creating' Description:'Creating'"
+    from: EventGrid.json
+    where: $.definitions.TopicTypeProvisioningState.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Updating' Description:'Updating'"
+    from: EventGrid.json
+    where: $.definitions.TopicTypeProvisioningState.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleting' Description:'Deleting'"
+    from: EventGrid.json
+    where: $.definitions.TopicTypeProvisioningState.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Succeeded' Description:'Succeeded'"
+    from: EventGrid.json
+    where: $.definitions.TopicTypeProvisioningState.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Canceled' Description:'Canceled'"
+    from: EventGrid.json
+    where: $.definitions.TopicTypeProvisioningState.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Failed' Description:'Failed'"
+    from: EventGrid.json
+    where: $.definitions.TopicTypeProvisioningState.x-ms-enum.values[5].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Resource' Description:'Resource'"
+    from: EventGrid.json
+    where: $.definitions.TopicTypeSourceScope.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'ResourceGroup' Description:'ResourceGroup'"
+    from: EventGrid.json
+    where: $.definitions.TopicTypeSourceScope.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'AzureSubscription' Description:'AzureSubscription'"
+    from: EventGrid.json
+    where: $.definitions.TopicTypeSourceScope.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'ManagementGroup' Description:'ManagementGroup'"
+    from: EventGrid.json
+    where: $.definitions.TopicTypeSourceScope.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Enabled' Description:'Enabled'"
+    from: EventGrid.json
+    where: $.definitions.TopicUpdateParameterProperties.properties.publicNetworkAccess.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Disabled' Description:'Disabled'"
+    from: EventGrid.json
+    where: $.definitions.TopicUpdateParameterProperties.properties.publicNetworkAccess.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'SecuredByPerimeter' Description:'SecuredByPerimeter'"
+    from: EventGrid.json
+    where: $.definitions.TopicUpdateParameterProperties.properties.publicNetworkAccess.x-ms-enum.values[2].description
+
+  - code: GuidUsage
+    reason: "Usage of Guid is not recommended. If GUIDs are absolutely required in your service, please get sign off from the Azure API review board."
+    from: EventGrid.json
+    where: $.definitions.VerifiedPartnerProperties.properties.partnerRegistrationImmutableId.format
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Creating' Description:'Creating'"
+    from: EventGrid.json
+    where: $.definitions.VerifiedPartnerProvisioningState.x-ms-enum.values[0].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Updating' Description:'Updating'"
+    from: EventGrid.json
+    where: $.definitions.VerifiedPartnerProvisioningState.x-ms-enum.values[1].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Deleting' Description:'Deleting'"
+    from: EventGrid.json
+    where: $.definitions.VerifiedPartnerProvisioningState.x-ms-enum.values[2].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Succeeded' Description:'Succeeded'"
+    from: EventGrid.json
+    where: $.definitions.VerifiedPartnerProvisioningState.x-ms-enum.values[3].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Canceled' Description:'Canceled'"
+    from: EventGrid.json
+    where: $.definitions.VerifiedPartnerProvisioningState.x-ms-enum.values[4].description
+
+  - code: DescriptionMustNotBeNodeName
+    reason: "Description must not match the name of the node it is supposed to describe. Node name:'Failed' Description:'Failed'"
+    from: EventGrid.json
+    where: $.definitions.VerifiedPartnerProvisioningState.x-ms-enum.values[5].description
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not be required, property:federatedClientId."
+    from: EventGrid.json
+    where: $.paths["/{scope}/providers/Microsoft.EventGrid/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[3].schema.properties.deadLetterWithResourceIdentity
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not have default value, property:name."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}"].patch.parameters[4].schema.properties.sku
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not be required, property:federatedClientId."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[5].schema.properties.deadLetterWithResourceIdentity
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not be required, property:federatedClientId."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[6].schema.properties.deadLetterWithResourceIdentity
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not be required, property:federatedClientId."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerTopics/{partnerTopicName}/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[5].schema.properties.deadLetterWithResourceIdentity
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not be required, property:federatedClientId."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/systemTopics/{systemTopicName}/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[5].schema.properties.deadLetterWithResourceIdentity
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not have default value, property:name."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}"].patch.parameters[4].schema.properties.sku
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not be required, property:federatedClientId."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[5].schema.properties.deadLetterWithResourceIdentity
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not be required, property:federatedClientId."
+    from: EventGrid.json
+    where: $.paths["/{scope}/providers/Microsoft.EventGrid/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[3].schema.properties.deliveryWithResourceIdentity
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not be required, property:federatedClientId."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[5].schema.properties.deliveryWithResourceIdentity
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not be required, property:federatedClientId."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/domains/{domainName}/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[6].schema.properties.deliveryWithResourceIdentity
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not be required, property:federatedClientId."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/partnerTopics/{partnerTopicName}/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[5].schema.properties.deliveryWithResourceIdentity
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not be required, property:federatedClientId."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/systemTopics/{systemTopicName}/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[5].schema.properties.deliveryWithResourceIdentity
+
+  - code: PatchBodyParametersSchema
+    reason: "Properties of a PATCH request body must not be required, property:federatedClientId."
+    from: EventGrid.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}/eventSubscriptions/{eventSubscriptionName}"].patch.parameters[5].schema.properties.deliveryWithResourceIdentity
+
 ```
 
 ### Tag: package-2025-11-preview
